@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathUniverse — Complete Mathematics Learning Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Bengali:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2e4a;
+    --navy-deep: #0f1e33;
+    --navy-mid: #243650;
+    --teal: #1a8c8c;
+    --teal-light: #24b3b3;
+    --gold: #d4a838;
+    --gold-light: #f0c84a;
+    --cream: #f8f5ef;
+    --cream-warm: #f2ede4;
+    --text: #1a2040;
+    --text-muted: #5a6480;
+    --border: #ddd8cf;
+    --white: #ffffff;
+    --emerald: #2ea878;
+    --blue: #2563eb;
+    --amber: #d97706;
+    --rose: #e11d48;
+    --slate: #475569;
+    --shadow: 0 4px 24px rgba(26,46,74,0.10);
+    --shadow-lg: 0 12px 48px rgba(26,46,74,0.18);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(26,46,74,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(212,168,56,0.2);
+    padding: 0 2rem;
+  }
+  .header-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; gap: 1.5rem;
+    height: 64px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 0.75rem;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+  }
+  .logo-text { color: white; font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 700; }
+  .logo-bn { color: rgba(255,255,255,0.5); font-size: 0.7rem; display: block; font-family: 'Noto Sans Bengali', sans-serif; }
+
+  .header-search {
+    flex: 1; max-width: 400px;
+    position: relative;
+  }
+  .header-search input {
+    width: 100%; padding: 0.5rem 1rem 0.5rem 2.5rem;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; color: white; font-size: 0.875rem; font-family: 'DM Sans', sans-serif;
+    outline: none; transition: all 0.2s;
+  }
+  .header-search input::placeholder { color: rgba(255,255,255,0.4); }
+  .header-search input:focus { background: rgba(255,255,255,0.12); border-color: rgba(212,168,56,0.5); }
+  .header-search svg { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); }
+
+  nav { display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
+  .nav-btn {
+    padding: 0.4rem 0.85rem; border-radius: 7px;
+    background: transparent; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.75); font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s;
+    text-decoration: none;
+  }
+  .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,0.1); color: white; }
+  .lang-btn {
+    padding: 0.35rem 0.75rem; border-radius: 6px;
+    border: 1px solid rgba(212,168,56,0.4); background: transparent;
+    color: var(--gold-light); font-weight: 600; font-size: 0.8rem;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+  }
+  .lang-btn:hover { background: rgba(212,168,56,0.1); border-color: var(--gold-light); }
+
+  /* ========== PAGES ========== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ========== HERO ========== */
+  .hero {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 50%, #1a3d5c 100%);
+    padding: 5rem 2rem 4rem;
+    position: relative; overflow: hidden;
+    min-height: 540px; display: flex; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ctext x='5' y='30' fill='white' font-size='28' font-family='serif'%3E∫%3C/text%3E%3Ctext x='55' y='65' fill='white' font-size='22' font-family='serif'%3Eπ%3C/text%3E%3Ctext x='20' y='85' fill='white' font-size='18' font-family='serif'%3EΣ%3C/text%3E%3Ctext x='75' y='25' fill='white' font-size='16' font-family='serif'%3E∞%3C/text%3E%3Ctext x='40' y='50' fill='white' font-size='20' font-family='serif'%3E√%3C/text%3E%3C/svg%3E");
+  }
+  .floating-symbols {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .float-sym {
+    position: absolute; font-family: 'Lora', serif;
+    color: rgba(255,255,255,0.06); font-size: 5rem; animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+
+  .hero-content { max-width: 1280px; margin: 0 auto; text-align: center; position: relative; z-index: 1; width: 100%; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(212,168,56,0.15); border: 1px solid rgba(212,168,56,0.3);
+    color: var(--gold-light); font-size: 0.8rem; font-weight: 500; padding: 0.35rem 1rem;
+    border-radius: 100px; margin-bottom: 1.5rem; animation: fadeIn 0.6s ease;
+  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .hero h1 {
+    font-family: 'Lora', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700; color: white; margin-bottom: 0.5rem;
+    animation: fadeIn 0.7s ease 0.1s both;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem); color: rgba(255,255,255,0.8);
+    font-weight: 500; margin-bottom: 1rem;
+    animation: fadeIn 0.7s ease 0.2s both;
+  }
+  .hero-desc {
+    font-size: 1rem; color: rgba(255,255,255,0.55); max-width: 560px; margin: 0 auto 2.5rem;
+    animation: fadeIn 0.7s ease 0.3s both;
+  }
+  .hero-search-wrap {
+    max-width: 580px; margin: 0 auto 2rem; position: relative;
+    animation: fadeIn 0.7s ease 0.4s both;
+  }
+  .hero-search-wrap input {
+    width: 100%; height: 56px; padding: 0 8rem 0 3.5rem;
+    border-radius: 14px; border: none; background: white;
+    font-size: 1rem; font-family: 'DM Sans', sans-serif; color: var(--text);
+    box-shadow: var(--shadow-lg); outline: none;
+  }
+  .hero-search-wrap svg { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+  .hero-search-btn {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    padding: 0.5rem 1.5rem; background: var(--navy); color: white;
+    border: none; border-radius: 10px; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: background 0.2s;
+  }
+  .hero-search-btn:hover { background: var(--teal); }
+  .hero-topics { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-bottom: 2.5rem; animation: fadeIn 0.7s ease 0.5s both; }
+  .hero-topic-btn {
+    padding: 0.4rem 1rem; border-radius: 100px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85); font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hero-topic-btn:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+  .hero-scroll-btn {
+    background: transparent; border: none; color: rgba(255,255,255,0.6);
+    cursor: pointer; font-size: 0.85rem; font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; gap: 0.4rem; margin: 0 auto;
+    transition: color 0.2s; animation: fadeIn 0.7s ease 0.6s both;
+  }
+  .hero-scroll-btn:hover { color: white; }
+
+  /* ========== SECTIONS ========== */
+  .section { padding: 4rem 2rem; }
+  .section-inner { max-width: 1280px; margin: 0 auto; }
+  .section-title { font-family: 'Lora', serif; font-size: 2rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .section-desc { color: var(--text-muted); font-size: 1rem; margin-bottom: 2.5rem; max-width: 560px; }
+
+  /* ========== CATEGORY GRID ========== */
+  #categories { background: white; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .cat-card {
+    border-radius: 16px; overflow: hidden; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s; position: relative;
+    text-decoration: none; display: block; box-shadow: var(--shadow);
+  }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .cat-header { padding: 1.75rem 1.75rem 1rem; color: white; position: relative; overflow: hidden; }
+  .cat-header::before {
+    content: attr(data-emoji);
+    position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+    font-size: 4rem; opacity: 0.15;
+  }
+  .cat-badge { font-size: 0.72rem; font-weight: 600; background: rgba(255,255,255,0.2); padding: 0.2rem 0.6rem; border-radius: 100px; margin-bottom: 0.75rem; display: inline-block; }
+  .cat-title { font-family: 'Lora', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .cat-title-bn { font-family: 'Noto Sans Bengali', sans-serif; font-size: 0.85rem; opacity: 0.8; }
+  .cat-body { padding: 1rem 1.75rem 1.5rem; background: white; }
+  .cat-desc { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem; }
+  .cat-topics { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .topic-chip { font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: 100px; background: var(--cream); color: var(--text-muted); border: 1px solid var(--border); }
+  .cat-action { font-size: 0.875rem; font-weight: 600; color: var(--teal); display: flex; align-items: center; gap: 0.3rem; }
+
+  /* ========== FEATURES ========== */
+  #features { background: var(--cream-warm); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .feat-card {
+    background: white; border-radius: 14px; padding: 1.5rem;
+    text-align: center; border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .feat-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(26,140,140,0.1); color: var(--teal); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.25rem; }
+  .feat-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .feat-desc { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ========== FORMULA SHEETS PAGE ========== */
+  #page-formulas { background: var(--cream); }
+  .page-hero { background: linear-gradient(135deg, var(--navy), var(--navy-mid)); padding: 3rem 2rem; }
+  .page-hero-inner { max-width: 1280px; margin: 0 auto; }
+  .back-btn { display: inline-flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none; margin-bottom: 1.5rem; transition: color 0.2s; cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; }
+  .back-btn:hover { color: white; }
+  .page-hero h2 { font-family: 'Lora', serif; font-size: 2.25rem; color: white; font-weight: 700; }
+  .page-hero p { color: rgba(255,255,255,0.6); margin-top: 0.5rem; }
+
+  .formula-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding: 1.5rem 2rem 0; max-width: 1280px; margin: 0 auto; }
+  .formula-tab {
+    flex-shrink: 0; padding: 0.5rem 1.25rem; border-radius: 8px 8px 0 0;
+    border: 1px solid var(--border); border-bottom: none; background: white;
+    cursor: pointer; font-size: 0.875rem; font-weight: 500;
+    color: var(--text-muted); transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .formula-tab.active, .formula-tab:hover { background: white; color: var(--teal); border-color: var(--teal); }
+
+  .formula-content { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+  .formula-search { width: 100%; max-width: 380px; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; outline: none; background: white; margin-bottom: 1.5rem; transition: border-color 0.2s; position: relative; }
+  .formula-search:focus { border-color: var(--teal); }
+  .formula-search-wrap { position: relative; display: inline-block; }
+  .formula-search-wrap svg { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+
+  .formula-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .formula-card {
+    background: white; border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.25rem; transition: box-shadow 0.2s, border-color 0.2s;
+    position: relative;
+  }
+  .formula-card:hover { box-shadow: var(--shadow); border-color: var(--teal); }
+  .formula-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .formula-name-bn { font-family: 'Noto Sans Bengali', sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .formula-expr {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
+    background: var(--cream); padding: 0.6rem 0.85rem; border-radius: 8px;
+    color: var(--navy); border: 1px solid var(--cream-warm);
+    margin-bottom: 0.5rem; word-break: break-all;
+  }
+  .formula-desc { font-size: 0.78rem; color: var(--text-muted); }
+  .copy-btn {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: var(--cream); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.3rem 0.6rem; font-size: 0.72rem; cursor: pointer; color: var(--text-muted);
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .copy-btn:hover { background: var(--teal); color: white; border-color: var(--teal); }
+
+  /* ========== MATH SOLVER PAGE ========== */
+  #page-solver { background: var(--cream); }
+  .solver-layout { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; max-width: 1280px; margin: 0 auto; padding: 2rem; }
+  @media(max-width:900px) { .solver-layout { grid-template-columns: 1fr; } }
+
+  .solver-input-area { background: white; border-radius: 16px; border: 1px solid var(--border); padding: 1.5rem; }
+  .solver-input-area label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 0.75rem; }
+  .solver-textarea {
+    width: 100%; min-height: 120px; padding: 1rem;
+    border: 1px solid var(--border); border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+    resize: vertical; outline: none; transition: border-color 0.2s; color: var(--text);
+    background: var(--cream);
+  }
+  .solver-textarea:focus { border-color: var(--teal); }
+  .solver-actions { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.65rem 1.5rem; background: var(--teal); color: white;
+    border: none; border-radius: 9px; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    display: flex; align-items: center; gap: 0.5rem; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--teal-light); }
+  .btn-secondary {
+    padding: 0.65rem 1.25rem; background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: 9px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+
+  .solver-result { background: white; border-radius: 16px; border: 1px solid var(--border); padding: 1.5rem; margin-top: 1.5rem; }
+  .result-title { font-weight: 700; font-size: 1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .result-answer { background: linear-gradient(135deg,rgba(26,140,140,0.08),rgba(26,140,140,0.03)); border: 1px solid rgba(26,140,140,0.2); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+  .answer-label { font-size: 0.75rem; font-weight: 600; color: var(--teal); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+  .answer-val { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--navy); font-weight: 600; }
+  .steps-list { list-style: none; }
+  .step-item { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .step-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--teal); color: white; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .step-text { font-size: 0.875rem; color: var(--text-muted); }
+  .step-expr { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--navy); margin-top: 0.2rem; }
+
+  .solver-examples { background: white; border-radius: 16px; border: 1px solid var(--border); padding: 1.5rem; }
+  .examples-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; }
+  .example-item {
+    padding: 0.65rem 0.85rem; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--border); margin-bottom: 0.5rem;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: space-between;
+  }
+  .example-item:hover { border-color: var(--teal); background: rgba(26,140,140,0.04); }
+  .example-name { font-size: 0.825rem; font-weight: 500; }
+  .example-input { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+  .example-cat { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--cream); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* ========== SECONDARY PAGE ========== */
+  #page-secondary { background: var(--cream); }
+  .class-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .class-tab { padding: 0.5rem 1.5rem; border-radius: 8px; border: 2px solid var(--border); background: white; cursor: pointer; font-weight: 600; font-size: 0.875rem; transition: all 0.2s; font-family: 'DM Sans', sans-serif; color: var(--text-muted); }
+  .class-tab.active { border-color: var(--teal); background: var(--teal); color: white; }
+
+  .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .chapter-card {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 1.25rem; transition: all 0.2s; cursor: pointer;
+  }
+  .chapter-card:hover { box-shadow: var(--shadow); border-color: var(--teal); transform: translateY(-2px); }
+  .ch-num { font-size: 0.72rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .ch-title { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+  .ch-title-bn { font-family: 'Noto Sans Bengali', sans-serif; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .ch-topics { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.85rem; }
+  .ch-topic { font-size: 0.72rem; padding: 0.2rem 0.55rem; border-radius: 100px; background: var(--cream); color: var(--text-muted); border: 1px solid var(--border); }
+  .ch-stats { display: flex; gap: 1rem; }
+  .ch-stat { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem; }
+
+  /* ========== FOOTER ========== */
+  footer { background: var(--navy-deep); color: rgba(255,255,255,0.5); padding: 2rem; text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(212,168,56,0.1); }
+  footer a { color: var(--teal-light); text-decoration: none; }
+
+  /* ========== SEARCH RESULTS ========== */
+  .search-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200;
+    display: none; align-items: flex-start; justify-content: center; padding-top: 100px;
+  }
+  .search-overlay.open { display: flex; }
+  .search-modal { background: white; border-radius: 16px; width: 100%; max-width: 600px; overflow: hidden; box-shadow: var(--shadow-lg); }
+  .search-modal-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+  .search-modal-input { flex: 1; border: none; outline: none; font-size: 1rem; font-family: 'DM Sans', sans-serif; }
+  .search-results { max-height: 400px; overflow-y: auto; }
+  .search-result-item { padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--cream-warm); cursor: pointer; transition: background 0.15s; }
+  .search-result-item:hover { background: var(--cream); }
+  .search-result-type { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--teal); font-weight: 600; margin-bottom: 0.2rem; }
+  .search-result-title { font-size: 0.9rem; font-weight: 500; }
+
+  /* ========== TOAST ========== */
+  .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--navy); color: white; padding: 0.75rem 1.25rem; border-radius: 10px; font-size: 0.85rem; z-index: 300; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ========== RESPONSIVE ========== */
+  @media(max-width:768px) {
+    .header-search, nav .nav-btn:not(.lang-btn) { display: none; }
+    .solver-layout { padding: 1rem; }
+    .formula-content { padding: 1rem; }
+    .section { padding: 3rem 1rem; }
+  }
+
+  /* ========== LOADING ========== */
+  .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ========== CATEGORY COLORS ========== */
+  .grad-emerald { background: linear-gradient(135deg, #059669, #0d9488); }
+  .grad-blue { background: linear-gradient(135deg, #2563eb, #4f46e5); }
+  .grad-primary { background: linear-gradient(135deg, #1a2e4a, #1a8c8c); }
+  .grad-amber { background: linear-gradient(135deg, #d97706, #ea580c); }
+  .grad-rose { background: linear-gradient(135deg, #e11d48, #db2777); }
+  .grad-slate { background: linear-gradient(135deg, #475569, #334155); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="showPage('home')">
+      <div class="logo-icon">🎓</div>
+      <div>
+        <span class="logo-text" id="logo-text">MathUniverse</span>
+        <span class="logo-bn" id="logo-bn">ম্যাথইউনিভার্স</span>
+      </div>
+    </a>
+    <div class="header-search">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="header-search-input" placeholder="Search any math topic..." onfocus="openSearch()" oninput="handleSearchInput(this.value)">
+    </div>
+    <nav>
+      <button class="nav-btn" onclick="showPage('formulas')">📋 <span id="nav-formulas">Formula Sheets</span></button>
+      <button class="nav-btn" onclick="showPage('solver')">🧮 <span id="nav-solver">Math Solver</span></button>
+      <button class="lang-btn" id="lang-btn" onclick="toggleLanguage()">EN</button>
+    </nav>
+  </div>
+</header>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-modal">
+    <div class="search-modal-header">
+      <svg width="18" height="18" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-modal-input" id="modal-search-input" placeholder="Search topics, formulas, chapters..." oninput="handleSearchInput(this.value)" autofocus>
+      <button onclick="closeSearch()" style="background:none;border:none;cursor:pointer;font-size:1.2rem;color:#999">✕</button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ======================== HOME PAGE ======================== -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-symbols">
+      <div class="float-sym" style="top:15%;left:6%">∑</div>
+      <div class="float-sym" style="top:55%;right:8%;animation-delay:2s">∫</div>
+      <div class="float-sym" style="bottom:15%;left:22%;animation-delay:4s">π</div>
+      <div class="float-sym" style="bottom:25%;right:28%;animation-delay:1s">√</div>
+      <div class="float-sym" style="top:35%;left:48%;animation-delay:3s">∞</div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">✨ <span id="hero-badge-text">From Class 1 to PhD — All in one place</span></div>
+      <h1 id="hero-title">MathUniverse</h1>
+      <p class="hero-sub" id="hero-subtitle">Your Complete Mathematics Learning Journey</p>
+      <p class="hero-desc" id="hero-desc">From primary school to PhD — master mathematics with comprehensive notes, video lessons, and practice problems.</p>
+      <div class="hero-search-wrap">
+        <svg width="18" height="18" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="hero-search" placeholder="Search any math topic..." onfocus="openSearch()">
+        <button class="hero-search-btn" onclick="openSearch()">Search</button>
+      </div>
+      <div class="hero-topics" id="hero-topics">
+        <button class="hero-topic-btn" onclick="showPageWithSearch('formulas','algebra')">Algebra</button>
+        <button class="hero-topic-btn" onclick="showPageWithSearch('formulas','geometry')">Geometry</button>
+        <button class="hero-topic-btn" onclick="showPageWithSearch('formulas','calculus')">Calculus</button>
+        <button class="hero-topic-btn" onclick="showPageWithSearch('formulas','trigonometry')">Trigonometry</button>
+        <button class="hero-topic-btn" onclick="showPageWithSearch('formulas','statistics')">Statistics</button>
+      </div>
+      <button class="hero-scroll-btn" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+        Explore Categories ↓
+      </button>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" id="categories">
+    <div class="section-inner">
+      <h2 class="section-title" id="sec-categories">Learning Categories</h2>
+      <p class="section-desc" id="sec-categories-desc">Choose your level and start your journey</p>
+      <div class="cat-grid" id="cat-grid"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features" style="background:var(--cream-warm)">
+    <div class="section-inner">
+      <h2 class="section-title" id="sec-tools">Powerful Tools</h2>
+      <p class="section-desc" id="sec-tools-desc">Everything you need to master mathematics</p>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">📖</div>
+          <div class="feat-title" id="feat-notes">Concept Notes</div>
+          <div class="feat-desc" id="feat-notes-desc">Comprehensive notes with clear explanations and examples</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🎬</div>
+          <div class="feat-title" id="feat-video">Video Lessons</div>
+          <div class="feat-desc" id="feat-video-desc">Curated video lessons from expert educators</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">✏️</div>
+          <div class="feat-title" id="feat-practice">Practice Problems</div>
+          <div class="feat-desc" id="feat-practice-desc">Practice problems with step-by-step solutions</div>
+        </div>
+        <div class="feat-card" onclick="showPage('formulas')" style="cursor:pointer">
+          <div class="feat-icon">📋</div>
+          <div class="feat-title" id="feat-formulas">Formula Sheets</div>
+          <div class="feat-desc" id="feat-formulas-desc">Quick reference formula sheets for all topics</div>
+        </div>
+        <div class="feat-card" onclick="showPage('solver')" style="cursor:pointer">
+          <div class="feat-icon">🧮</div>
+          <div class="feat-title" id="feat-solver">Math Solver</div>
+          <div class="feat-desc" id="feat-solver-desc">Interactive problem solver with explanations</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================== FORMULA SHEETS PAGE ======================== -->
+<div class="page" id="page-formulas">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('home')">← <span id="back-home">Back to Home</span></button>
+      <h2 id="formulas-title">📋 Formula Sheets</h2>
+      <p id="formulas-desc">Quick reference formulas for all mathematics topics</p>
+    </div>
+  </div>
+  <div style="background:white;border-bottom:1px solid var(--border)">
+    <div class="formula-tabs" id="formula-tabs"></div>
+  </div>
+  <div class="formula-content">
+    <div class="formula-search-wrap">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="formula-search" type="text" id="formula-search" placeholder="Search formulas..." oninput="filterFormulas(this.value)">
+    </div>
+    <div class="formula-grid" id="formula-grid"></div>
+  </div>
+</div>
+
+<!-- ======================== MATH SOLVER PAGE ======================== -->
+<div class="page" id="page-solver">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('home')">← <span id="back-home2">Back to Home</span></button>
+      <h2 id="solver-title">🧮 AI Math Solver</h2>
+      <p id="solver-desc">Powered by Claude — solves any valid mathematics problem step by step</p>
+    </div>
+  </div>
+
+  <div style="max-width:860px;margin:0 auto;padding:2rem 1.5rem;">
+
+    <!-- Input Card -->
+    <div style="background:white;border-radius:16px;border:1.5px solid var(--border);padding:1.5rem;box-shadow:var(--shadow);margin-bottom:1.25rem;">
+      <div style="display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1rem;">
+        <textarea id="solver-input" class="solver-textarea"
+          placeholder="Type any math problem and press Enter…&#10;e.g.  x² - 5x + 6 = 0  |  ∫(2x+3)dx  |  lim x→0 sin(x)/x  |  d/dx(x³+2x²)"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();solveProblem();}"
+          style="flex:1;min-height:90px;font-size:0.95rem;"></textarea>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;align-self:flex-end;">
+          <button class="btn-primary" id="solve-btn" onclick="solveProblem()" style="height:46px;padding:0 1.5rem;font-size:0.95rem;">
+            ✨ <span id="solve-btn-text">Solve</span>
+          </button>
+          <button class="btn-secondary" onclick="clearSolver()" style="height:36px;padding:0 1rem;font-size:0.8rem;">↺ Clear</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;" id="solver-chips"></div>
+    </div>
+
+    <!-- Status / Result -->
+    <div id="solver-result"></div>
+
+    <!-- History -->
+    <div id="solver-history" style="margin-top:1.25rem;"></div>
+
+  </div>
+</div>
+
+<!-- ======================== SECONDARY PAGE ======================== -->
+<div class="page" id="page-secondary">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('home')">← <span>Back to Home</span></button>
+      <h2 id="secondary-title">📚 Secondary School</h2>
+      <p id="secondary-sub">West Bengal Board Curriculum — Class 9 & 10</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="class-tabs">
+        <button class="class-tab active" id="tab-class9" onclick="switchClass(9)">Class 9</button>
+        <button class="class-tab" id="tab-class10" onclick="switchClass(10)">Class 10</button>
+      </div>
+      <div class="chapter-grid" id="chapter-grid"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p id="footer-text">© 2026 MathUniverse. All rights reserved.</p>
+  <p style="margin-top:0.4rem;font-size:0.78rem">Built for students of West Bengal 🇮🇳</p>
+</footer>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const lang = { current: 'en' };
+
+const t = {
+  // nav
+  'formulaSheets': { en: 'Formula Sheets', bn: 'সূত্র শীট' },
+  'mathSolver': { en: 'Math Solver', bn: 'গণিত সমাধানকারী' },
+  // hero
+  'heroBadge': { en: 'From Class 1 to PhD — All in one place', bn: 'শ্রেণী ১ থেকে পিএইচডি — একটি জায়গায়' },
+  'heroTitle': { en: 'MathUniverse', bn: 'ম্যাথইউনিভার্স' },
+  'heroSubtitle': { en: 'Your Complete Mathematics Learning Journey', bn: 'আপনার সম্পূর্ণ গণিত শেখার যাত্রা' },
+  'heroDesc': { en: 'From primary school to PhD — master mathematics with comprehensive notes, video lessons, and practice problems.', bn: 'প্রাথমিক বিদ্যালয় থেকে পিএইচডি — ব্যাপক নোট, ভিডিও পাঠ এবং অনুশীলন সমস্যা সহ গণিতে দক্ষতা অর্জন করুন।' },
+  'searchPlaceholder': { en: 'Search any math topic...', bn: 'যেকোনো গণিত বিষয় অনুসন্ধান করুন...' },
+  'explore': { en: 'Explore Categories ↓', bn: 'বিভাগ অন্বেষণ করুন ↓' },
+  'categories': { en: 'Learning Categories', bn: 'শেখার বিভাগ' },
+  'catDesc': { en: 'Choose your level and start your journey', bn: 'আপনার স্তর বেছে নিন এবং যাত্রা শুরু করুন' },
+  'tools': { en: 'Powerful Tools', bn: 'শক্তিশালী সরঞ্জাম' },
+  'toolsDesc': { en: 'Everything you need to master mathematics', bn: 'গণিত দক্ষতার জন্য প্রয়োজনীয় সবকিছু' },
+  'conceptNotes': { en: 'Concept Notes', bn: 'ধারণা নোট' },
+  'conceptNotesDesc': { en: 'Comprehensive notes with clear explanations', bn: 'স্পষ্ট ব্যাখ্যা সহ ব্যাপক নোট' },
+  'videoLessons': { en: 'Video Lessons', bn: 'ভিডিও পাঠ' },
+  'videoDesc': { en: 'Curated video lessons from expert educators', bn: 'বিশেষজ্ঞ শিক্ষকদের নির্বাচিত ভিডিও পাঠ' },
+  'practiceProblems': { en: 'Practice Problems', bn: 'অনুশীলন সমস্যা' },
+  'practiceDesc': { en: 'Step-by-step solutions to practice problems', bn: 'ধাপে ধাপে সমাধান সহ অনুশীলন সমস্যা' },
+  'formulaSheetsDesc': { en: 'Quick reference formula sheets for all topics', bn: 'সব বিষয়ের জন্য দ্রুত রেফারেন্স সূত্র শীট' },
+  'mathSolverDesc': { en: 'Interactive problem solver with explanations', bn: 'ব্যাখ্যা সহ ইন্টারেক্টিভ সমস্যা সমাধানকারী' },
+  'backHome': { en: 'Back to Home', bn: 'হোমে ফিরুন' },
+  'formulasPageTitle': { en: '📋 Formula Sheets', bn: '📋 সূত্র শীট' },
+  'formulasPageDesc': { en: 'Quick reference formulas for all mathematics topics', bn: 'সকল গণিত বিষয়ের জন্য দ্রুত রেফারেন্স সূত্র' },
+  'searchFormulas': { en: 'Search formulas...', bn: 'সূত্র অনুসন্ধান করুন...' },
+  'solverPageTitle': { en: '🧮 Math Solver', bn: '🧮 গণিত সমাধানকারী' },
+  'solverPageDesc': { en: 'Enter any equation or problem for step-by-step solution', bn: 'ধাপে ধাপে সমাধানের জন্য যেকোনো সমীকরণ বা সমস্যা লিখুন' },
+  'solverLabel': { en: 'Enter your equation or problem', bn: 'আপনার সমীকরণ বা সমস্যা লিখুন' },
+  'solve': { en: 'Solve', bn: 'সমাধান করুন' },
+  'clear': { en: 'Clear', bn: 'মুছুন' },
+  'examples': { en: '📚 Example Problems', bn: '📚 উদাহরণ সমস্যা' },
+  'copied': { en: 'Copied!', bn: 'কপি হয়েছে!' },
+  'copy': { en: 'Copy', bn: 'কপি' },
+  'solutionFor': { en: '✨ Solution', bn: '✨ সমাধান' },
+  'answer': { en: 'Answer', bn: 'উত্তর' },
+  'steps': { en: 'Step-by-step', bn: 'ধাপে ধাপে' },
+  'startLearning': { en: 'Start Learning →', bn: 'শেখা শুরু করুন →' },
+  'footer': { en: '© 2026 MathUniverse. All rights reserved.', bn: '© ২০২৬ ম্যাথইউনিভার্স। সর্বস্বত্ব সংরক্ষিত।' },
+};
+
+function tr(key) { return t[key] ? (t[key][lang.current] || t[key].en) : key; }
+
+// ---- Categories ----
+const categories = [
+  { id:'primary', titleEn:'Primary School', titleBn:'প্রাথমিক বিদ্যালয়', grade:'Class 1–5', gradeBn:'শ্রেণী ১–৫', descEn:'Build strong foundations with basic arithmetic, shapes, and numbers', descBn:'মৌলিক গণিত, আকৃতি এবং সংখ্যা দিয়ে শক্তিশালী ভিত্তি তৈরি করুন', grad:'grad-emerald', emoji:'🧮', topics:['Number Theory','Shapes','Basic Algebra'], topicsBn:['সংখ্যা তত্ত্ব','আকৃতি','মৌলিক বীজগণিত'], page:'home' },
+  { id:'middle', titleEn:'Middle School', titleBn:'মাধ্যমিক বিদ্যালয়', grade:'Class 6–8', gradeBn:'শ্রেণী ৬–৮', descEn:'Explore algebra, basic geometry, and develop problem-solving skills', descBn:'বীজগণিত, মৌলিক জ্যামিতি অন্বেষণ করুন', grad:'grad-blue', emoji:'📐', topics:['Algebra','Geometry','Mensuration','Statistics'], topicsBn:['বীজগণিত','জ্যামিতি','পরিমিতি','পরিসংখ্যান'], page:'home' },
+  { id:'secondary', titleEn:'Secondary School', titleBn:'মাধ্যমিক', grade:'Class 9–10', gradeBn:'শ্রেণী ৯–১০', descEn:'West Bengal Board — Algebra, Geometry, Trigonometry & Coordinate Geometry', descBn:'পশ্চিমবঙ্গ বোর্ড — বীজগণিত, জ্যামিতি, ত্রিকোণমিতি', grad:'grad-primary', emoji:'📚', topics:['Algebra','Geometry','Trigonometry','Coordinate'], topicsBn:['বীজগণিত','জ্যামিতি','ত্রিকোণমিতি','স্থানাঙ্ক জ্যামিতি'], page:'secondary' },
+  { id:'higher', titleEn:'Higher Secondary', titleBn:'উচ্চ মাধ্যমিক', grade:'Class 11–12', gradeBn:'শ্রেণী ১১–১২', descEn:'Advanced mathematics with calculus, algebra, and statistics', descBn:'ক্যালকুলাস, বীজগণিত এবং পরিসংখ্যান সহ উন্নত গণিত', grad:'grad-amber', emoji:'🔢', topics:['Calculus','Algebra','Trigonometry','Coordinate'], topicsBn:['ক্যালকুলাস','বীজগণিত','ত্রিকোণমিতি','স্থানাঙ্ক'], page:'home' },
+  { id:'undergrad', titleEn:'Undergraduate', titleBn:'স্নাতক', grade:'B.Sc Mathematics', gradeBn:'বিএসসি গণিত', descEn:'Pure and applied mathematics — real analysis, linear algebra, topology', descBn:'বিশুদ্ধ ও প্রায়োগিক গণিত — রিয়েল অ্যানালাইসিস, লিনিয়ার অ্যালজেব্রা', grad:'grad-rose', emoji:'🎓', topics:['Calculus','Number Theory','Linear Algebra','Statistics'], topicsBn:['ক্যালকুলাস','সংখ্যা তত্ত্ব','লিনিয়ার অ্যালজেব্রা','পরিসংখ্যান'], page:'home' },
+  { id:'research', titleEn:'Research & PhD', titleBn:'গবেষণা ও পিএইচডি', grade:'Advanced Topics', gradeBn:'উন্নত বিষয়', descEn:'Advanced topics and research methodology for graduate students', descBn:'স্নাতকোত্তর শিক্ষার্থীদের জন্য উন্নত বিষয় ও গবেষণা পদ্ধতি', grad:'grad-slate', emoji:'🔬', topics:['Number Theory','Topology','Abstract Algebra','Analysis'], topicsBn:['সংখ্যা তত্ত্ব','টপোলজি','অ্যাবস্ট্রাক্ট অ্যালজেব্রা','বিশ্লেষণ'], page:'home' },
+];
+
+// ---- Formulas ----
+const formulaData = {
+  algebra: {
+    nameEn:'Algebra', nameBn:'বীজগণিত', icon:'x²',
+    formulas:[
+      { nameEn:'Quadratic Formula', nameBn:'দ্বিঘাত সূত্র', expr:'x = (-b ± √(b² - 4ac)) / 2a', descEn:'Roots of ax² + bx + c = 0', descBn:'ax² + bx + c = 0 এর বীজ' },
+      { nameEn:'Sum of Roots', nameBn:'বীজের সমষ্টি', expr:'α + β = -b/a', descEn:'For quadratic equation', descBn:'দ্বিঘাত সমীকরণের জন্য' },
+      { nameEn:'Product of Roots', nameBn:'বীজের গুণফল', expr:'αβ = c/a', descEn:'For quadratic equation', descBn:'দ্বিঘাত সমীকরণের জন্য' },
+      { nameEn:'Square of Sum', nameBn:'সমষ্টির বর্গ', expr:'(a + b)² = a² + 2ab + b²' },
+      { nameEn:'Square of Difference', nameBn:'বিয়োগফলের বর্গ', expr:'(a - b)² = a² - 2ab + b²' },
+      { nameEn:'Difference of Squares', nameBn:'বর্গের বিয়োগফল', expr:'a² - b² = (a + b)(a - b)' },
+      { nameEn:'Cube of Sum', nameBn:'সমষ্টির ঘন', expr:'(a + b)³ = a³ + 3a²b + 3ab² + b³' },
+      { nameEn:'Sum of Cubes', nameBn:'ঘনের সমষ্টি', expr:'a³ + b³ = (a + b)(a² - ab + b²)' },
+      { nameEn:'Discriminant', nameBn:'বিবেচক', expr:'D = b² - 4ac', descEn:'D>0: two real roots, D=0: equal roots, D<0: complex', descBn:'D>0: দুটি বাস্তব বীজ, D=0: সমান বীজ' },
+    ]
+  },
+  trigonometry: {
+    nameEn:'Trigonometry', nameBn:'ত্রিকোণমিতি', icon:'θ',
+    formulas:[
+      { nameEn:'Pythagorean Identity', nameBn:'পিথাগোরাস পরিচয়', expr:'sin²θ + cos²θ = 1' },
+      { nameEn:'tan Identity', nameBn:'tan পরিচয়', expr:'1 + tan²θ = sec²θ' },
+      { nameEn:'cot Identity', nameBn:'cot পরিচয়', expr:'1 + cot²θ = csc²θ' },
+      { nameEn:'sin Addition', nameBn:'sin যোগ সূত্র', expr:'sin(A ± B) = sinA cosB ± cosA sinB' },
+      { nameEn:'cos Addition', nameBn:'cos যোগ সূত্র', expr:'cos(A ± B) = cosA cosB ∓ sinA sinB' },
+      { nameEn:'Double Angle sin', nameBn:'দ্বিগুণ কোণ sin', expr:'sin 2θ = 2 sin θ cos θ' },
+      { nameEn:'Double Angle cos', nameBn:'দ্বিগুণ কোণ cos', expr:'cos 2θ = cos²θ - sin²θ' },
+      { nameEn:'Sine Rule', nameBn:'সাইন নিয়ম', expr:'a/sinA = b/sinB = c/sinC' },
+      { nameEn:'Cosine Rule', nameBn:'কোসাইন নিয়ম', expr:'a² = b² + c² - 2bc cosA' },
+      { nameEn:'Area of Triangle', nameBn:'ত্রিভুজের ক্ষেত্রফল', expr:'Area = ½ ab sinC' },
+    ]
+  },
+  calculus: {
+    nameEn:'Calculus', nameBn:'ক্যালকুলাস', icon:'∫',
+    formulas:[
+      { nameEn:'Power Rule', nameBn:'পাওয়ার নিয়ম', expr:'d/dx(xⁿ) = n·xⁿ⁻¹' },
+      { nameEn:'Product Rule', nameBn:'গুণন নিয়ম', expr:'d/dx(uv) = u·dv/dx + v·du/dx' },
+      { nameEn:'Quotient Rule', nameBn:'ভাগ নিয়ম', expr:"d/dx(u/v) = (v·u' - u·v') / v²" },
+      { nameEn:'Chain Rule', nameBn:'চেইন নিয়ম', expr:'d/dx[f(g(x))] = f\'(g(x))·g\'(x)' },
+      { nameEn:'Power Integral', nameBn:'পাওয়ার সমাকল', expr:'∫xⁿ dx = xⁿ⁺¹/(n+1) + C', descEn:'n ≠ -1' },
+      { nameEn:'Definite Integral (FTC)', nameBn:'নির্দিষ্ট সমাকল', expr:'∫ₐᵇ f(x)dx = F(b) - F(a)' },
+      { nameEn:'sin Derivative', nameBn:'sin অন্তরকলজ', expr:'d/dx(sin x) = cos x' },
+      { nameEn:'cos Derivative', nameBn:'cos অন্তরকলজ', expr:'d/dx(cos x) = -sin x' },
+      { nameEn:'eˣ Derivative', nameBn:'eˣ অন্তরকলজ', expr:'d/dx(eˣ) = eˣ' },
+      { nameEn:'ln Derivative', nameBn:'ln অন্তরকলজ', expr:'d/dx(ln x) = 1/x' },
+    ]
+  },
+  geometry: {
+    nameEn:'Geometry', nameBn:'জ্যামিতি', icon:'△',
+    formulas:[
+      { nameEn:'Circle Area', nameBn:'বৃত্তের ক্ষেত্রফল', expr:'A = πr²', descEn:'r = radius', descBn:'r = ব্যাসার্ধ' },
+      { nameEn:'Circle Circumference', nameBn:'বৃত্তের পরিধি', expr:'C = 2πr' },
+      { nameEn:'Triangle Area', nameBn:'ত্রিভুজের ক্ষেত্রফল', expr:'A = ½ × base × height' },
+      { nameEn:"Heron's Formula", nameBn:'হেরনের সূত্র', expr:'A = √[s(s-a)(s-b)(s-c)]', descEn:'s = (a+b+c)/2', descBn:'s = অর্ধ-পরিধি' },
+      { nameEn:'Rectangle Area', nameBn:'আয়তক্ষেত্রের ক্ষেত্রফল', expr:'A = length × breadth' },
+      { nameEn:'Pythagorean Theorem', nameBn:'পিথাগোরাসের উপপাদ্য', expr:'a² + b² = c²', descEn:'c = hypotenuse', descBn:'c = অতিভুজ' },
+      { nameEn:'Sphere Volume', nameBn:'গোলকের আয়তন', expr:'V = (4/3)πr³' },
+      { nameEn:'Cylinder Volume', nameBn:'বেলনের আয়তন', expr:'V = πr²h' },
+      { nameEn:'Cone Volume', nameBn:'শঙ্কুর আয়তন', expr:'V = (1/3)πr²h' },
+    ]
+  },
+  statistics: {
+    nameEn:'Statistics', nameBn:'পরিসংখ্যান', icon:'σ',
+    formulas:[
+      { nameEn:'Mean', nameBn:'গড়', expr:'x̄ = (Σxᵢ) / n' },
+      { nameEn:'Variance', nameBn:'ভেরিয়েন্স', expr:'σ² = Σ(xᵢ - x̄)² / n' },
+      { nameEn:'Standard Deviation', nameBn:'প্রমাণ বিচ্যুতি', expr:'σ = √[Σ(xᵢ - x̄)² / n]' },
+      { nameEn:'Probability', nameBn:'সম্ভাবনা', expr:'P(A) = n(A) / n(S)' },
+      { nameEn:'Permutation', nameBn:'বিন্যাস', expr:'ⁿPᵣ = n! / (n-r)!' },
+      { nameEn:'Combination', nameBn:'সমাবেশ', expr:'ⁿCᵣ = n! / [r!(n-r)!]' },
+      { nameEn:'Normal Distribution', nameBn:'স্বাভাবিক বিতরণ', expr:'f(x) = (1/σ√2π)e^(-(x-μ)²/2σ²)' },
+      { nameEn:'Binomial Probability', nameBn:'দ্বিপদী সম্ভাবনা', expr:'P(X=k) = ⁿCₖ·pᵏ·(1-p)ⁿ⁻ᵏ' },
+    ]
+  },
+  coordinate: {
+    nameEn:'Coordinate Geometry', nameBn:'স্থানাঙ্ক জ্যামিতি', icon:'xy',
+    formulas:[
+      { nameEn:'Distance Formula', nameBn:'দূরত্ব সূত্র', expr:'d = √[(x₂-x₁)² + (y₂-y₁)²]' },
+      { nameEn:'Midpoint Formula', nameBn:'মধ্যবিন্দু সূত্র', expr:'M = ((x₁+x₂)/2, (y₁+y₂)/2)' },
+      { nameEn:'Slope Formula', nameBn:'ঢাল সূত্র', expr:'m = (y₂-y₁) / (x₂-x₁)' },
+      { nameEn:'Slope-Intercept Form', nameBn:'ঢাল-ছেদ রূপ', expr:'y = mx + c' },
+      { nameEn:'Point-Slope Form', nameBn:'বিন্দু-ঢাল রূপ', expr:'y - y₁ = m(x - x₁)' },
+      { nameEn:'Two-Point Form', nameBn:'দুই-বিন্দু রূপ', expr:'(y-y₁)/(y₂-y₁) = (x-x₁)/(x₂-x₁)' },
+      { nameEn:'Section Formula', nameBn:'অন্তর্বিভাগ সূত্র', expr:'P = ((mx₂+nx₁)/(m+n), (my₂+ny₁)/(m+n))' },
+    ]
+  }
+};
+
+
+// ---- Chapters ----
+const class9Chapters = [
+  { num:1, titleEn:'Real Numbers', titleBn:'বাস্তব সংখ্যা', topics:[{en:'Rational Numbers',bn:'মূলদ সংখ্যা'},{en:'Irrational Numbers',bn:'অমূলদ সংখ্যা'},{en:'Number Line',bn:'সংখ্যা রেখা'}], videos:8, problems:45 },
+  { num:2, titleEn:'Polynomials', titleBn:'বহুপদী', topics:[{en:'Degree of Polynomials',bn:'বহুপদীর মাত্রা'},{en:'Factorization',bn:'উৎপাদকে বিশ্লেষণ'},{en:'Remainder Theorem',bn:'অবশেষ উপপাদ্য'}], videos:12, problems:60 },
+  { num:3, titleEn:'Linear Equations in Two Variables', titleBn:'দুই চলকের রৈখিক সমীকরণ', topics:[{en:'Graphical Method',bn:'লেখচিত্র পদ্ধতি'},{en:'Substitution',bn:'প্রতিস্থাপন পদ্ধতি'},{en:'Elimination',bn:'বিলোপ পদ্ধতি'}], videos:10, problems:50 },
+  { num:4, titleEn:'Geometry — Triangles', titleBn:'জ্যামিতি — ত্রিভুজ', topics:[{en:'Congruence',bn:'সর্বসমতা'},{en:'Similarity',bn:'সদৃশতা'},{en:'Pythagoras',bn:'পিথাগোরাস'}], videos:15, problems:75 },
+  { num:5, titleEn:'Trigonometry', titleBn:'ত্রিকোণমিতি', topics:[{en:'sin, cos, tan',bn:'sin, cos, tan'},{en:'Standard Angles',bn:'প্রমাণ কোণ'},{en:'T-Ratios',bn:'টি-অনুপাত'}], videos:14, problems:80 },
+  { num:6, titleEn:'Statistics', titleBn:'পরিসংখ্যান', topics:[{en:'Mean',bn:'গড়'},{en:'Median',bn:'মধ্যমান'},{en:'Mode',bn:'সহিমান'}], videos:8, problems:40 },
+];
+const class10Chapters = [
+  { num:1, titleEn:'Quadratic Equations', titleBn:'দ্বিঘাত সমীকরণ', topics:[{en:'Factorization',bn:'উৎপাদকে বিশ্লেষণ'},{en:'Quadratic Formula',bn:'দ্বিঘাত সূত্র'},{en:'Nature of Roots',bn:'বীজের প্রকৃতি'}], videos:16, problems:90 },
+  { num:2, titleEn:'Arithmetic Progressions', titleBn:'সমান্তর প্রগতি', topics:[{en:'nth Term',bn:'n-তম পদ'},{en:'Sum of AP',bn:'AP এর সমষ্টি'},{en:'Applications',bn:'প্রয়োগ'}], videos:10, problems:55 },
+  { num:3, titleEn:'Circles', titleBn:'বৃত্ত', topics:[{en:'Tangent to a Circle',bn:'বৃত্তের স্পর্শক'},{en:'Chord Properties',bn:'জ্যার ধর্ম'},{en:'Angle Theorems',bn:'কোণের উপপাদ্য'}], videos:12, problems:65 },
+  { num:4, titleEn:'Coordinate Geometry', titleBn:'স্থানাঙ্ক জ্যামিতি', topics:[{en:'Distance Formula',bn:'দূরত্ব সূত্র'},{en:'Section Formula',bn:'অন্তর্বিভাগ সূত্র'},{en:'Area of Triangle',bn:'ত্রিভুজের ক্ষেত্রফল'}], videos:11, problems:60 },
+  { num:5, titleEn:'Mensuration', titleBn:'পরিমিতি', topics:[{en:'Surface Areas',bn:'পৃষ্ঠতলের ক্ষেত্রফল'},{en:'Volumes',bn:'আয়তন'},{en:'Frustum',bn:'ছেদিত শঙ্কু'}], videos:14, problems:70 },
+  { num:6, titleEn:'Probability', titleBn:'সম্ভাবনা', topics:[{en:'Classical Probability',bn:'ধ্রুপদী সম্ভাবনা'},{en:'Experimental',bn:'পরীক্ষামূলক'},{en:'Applications',bn:'প্রয়োগ'}], videos:9, problems:45 },
+];
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+let currentFormulaTab = 'algebra';
+let currentClass = 9;
+
+function renderCategoryGrid() {
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = categories.map(cat => `
+    <a class="cat-card" onclick="handleCatClick('${cat.page}','${cat.id}')" href="#">
+      <div class="cat-header ${cat.grad}" data-emoji="${cat.emoji}">
+        <span class="cat-badge">${lang.current==='bn' ? cat.gradeBn : cat.grade}</span>
+        <div class="cat-title">${lang.current==='bn' ? cat.titleBn : cat.titleEn}</div>
+        <div class="cat-title-bn">${cat.emoji} ${lang.current==='bn' ? cat.titleEn : cat.titleBn}</div>
+      </div>
+      <div class="cat-body">
+        <p class="cat-desc">${lang.current==='bn' ? cat.descBn : cat.descEn}</p>
+        <div class="cat-topics">
+          ${(lang.current==='bn' ? cat.topicsBn : cat.topics).map(tp => `<span class="topic-chip">${tp}</span>`).join('')}
+        </div>
+        <div class="cat-action">${lang.current==='bn' ? 'শেখা শুরু করুন →' : 'Start Learning →'}</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function handleCatClick(page, id) {
+  if(page==='secondary') showPage('secondary');
+  else if(page==='formulas') showPage('formulas');
+  else if(page==='solver') showPage('solver');
+  else showPage('home');
+}
+
+function renderFormulaTabs() {
+  const tabs = document.getElementById('formula-tabs');
+  tabs.innerHTML = Object.entries(formulaData).map(([key,cat]) => `
+    <button class="formula-tab ${key===currentFormulaTab?'active':''}" onclick="switchFormulaTab('${key}')">
+      <span style="font-family:monospace;margin-right:0.3rem">${cat.icon}</span>
+      ${lang.current==='bn' ? cat.nameBn : cat.nameEn}
+    </button>
+  `).join('');
+}
+
+function switchFormulaTab(key) {
+  currentFormulaTab = key;
+  document.querySelectorAll('.formula-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderFormulaGrid();
+}
+
+function renderFormulaGrid(filter='') {
+  const cat = formulaData[currentFormulaTab];
+  const grid = document.getElementById('formula-grid');
+  const formulas = filter ? 
+    cat.formulas.filter(f => f.nameEn.toLowerCase().includes(filter.toLowerCase()) || f.expr.includes(filter) || (f.nameBn && f.nameBn.includes(filter))) :
+    cat.formulas;
+  grid.innerHTML = formulas.map((f,i) => `
+    <div class="formula-card">
+      <button class="copy-btn" onclick="copyFormula('${f.expr.replace(/'/g,"\\'")}',this)">${tr('copy')}</button>
+      <div class="formula-name">${lang.current==='bn' ? f.nameBn : f.nameEn}</div>
+      ${f.nameBn && lang.current==='en' ? `<div class="formula-name-bn">${f.nameBn}</div>` : ''}
+      <div class="formula-expr">${f.expr}</div>
+      ${f.descEn ? `<div class="formula-desc">${lang.current==='bn' ? (f.descBn||f.descEn) : f.descEn}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function filterFormulas(val) {
+  renderFormulaGrid(val);
+}
+
+function copyFormula(expr, btn) {
+  navigator.clipboard.writeText(expr).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    btn.style.background = 'var(--teal)';
+    btn.style.color = 'white';
+    setTimeout(() => { btn.textContent = tr('copy'); btn.style.background=''; btn.style.color=''; }, 1500);
+    showToast(tr('copied'));
+  });
+}
+
+// ── SOLVER EXAMPLES ──────────────────────────────────────────
+const SOLVER_EXAMPLES_EN = [
+  'x² - 5x + 6 = 0','d/dx(x³ + 2x²)','∫(3x² + 2x)dx',
+  'lim x→0 sin(x)/x','sin²θ + cos²θ','2x + 3y = 12, x - y = 1',
+  'Area circle r=7','(a+b)³ expand','Determinant [[2,3],[1,4]]',
+  'Solve: e^x = 5','AP: 3,7,11… 10th term','P(A∪B) formula',
+];
+const SOLVER_EXAMPLES_BN = [
+  'x² - 5x + 6 = 0','d/dx(x³ + 2x²)','∫(3x² + 2x)dx',
+  'sin 30° মান','বৃত্তের ক্ষেত্রফল r=7','2x + 3y = 12, x - y = 1',
+  '(a+b)³ বিস্তার','AP: 3,7,11… দশম পদ',
+];
+const solverHistory = [];
+
+function renderExamples() {
+  const el = document.getElementById('solver-chips');
+  if (!el) return;
+  const chips = lang.current === 'bn' ? SOLVER_EXAMPLES_BN : SOLVER_EXAMPLES_EN;
+  el.innerHTML = chips.map(ex =>
+    `<button onclick="loadSolverEx(this.textContent)" style="font-size:0.75rem;padding:0.28rem 0.72rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)';this.style.background='rgba(26,140,140,0.06)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)';this.style.background='transparent'">${ex}</button>`
+  ).join('');
+}
+
+function loadSolverEx(text) {
+  document.getElementById('solver-input').value = text;
+  solveProblem();
+}
+
+function buildResultHTML(sol, inputQ) {
+  const isBn = lang.current === 'bn';
+  const steps = sol.steps.map((s, i) => `
+    <div style="display:flex;gap:0.85rem;padding:0.85rem 0;${i < sol.steps.length-1 ? 'border-bottom:1px solid var(--cream-warm);' : ''}">
+      <div style="width:26px;height:26px;border-radius:50%;background:rgba(26,140,140,0.12);color:var(--teal);font-size:0.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">${i+1}</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:0.875rem;color:var(--text);margin-bottom:0.2rem;">${s.title}</div>
+        <div style="font-size:0.865rem;color:var(--text-muted);line-height:1.65;">${s.explanation}</div>
+        ${s.expression ? `<code style="display:inline-block;margin-top:0.45rem;font-family:'JetBrains Mono',monospace;font-size:0.865rem;color:var(--navy);background:var(--cream);padding:0.35rem 0.75rem;border-radius:8px;border:1px solid var(--border);">${s.expression}</code>` : ''}
+      </div>
+    </div>`).join('');
+  return `
+    <div style="background:white;border-radius:16px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow);">
+      <div style="padding:0.85rem 1.5rem;border-bottom:1px solid var(--cream-warm);display:flex;align-items:center;justify-content:space-between;gap:1rem;background:linear-gradient(to right,rgba(26,140,140,0.05),transparent);">
+        <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.04em;padding:0.25rem 0.8rem;background:rgba(26,140,140,0.1);color:var(--teal);border-radius:100px;white-space:nowrap;">${sol.topic}</span>
+        <span style="font-size:0.75rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;text-align:right;">${inputQ.length>56 ? inputQ.slice(0,56)+'…' : inputQ}</span>
+      </div>
+      <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--cream-warm);">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:0.45rem;">${isBn ? 'চূড়ান্ত উত্তর' : 'Answer'}</div>
+        <div style="font-size:1.5rem;font-weight:700;color:var(--teal);font-family:'JetBrains Mono',monospace;line-height:1.4;word-break:break-word;">${sol.answer}</div>
+      </div>
+      <div style="padding:1.25rem 1.5rem;">
+        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:0.5rem;">${isBn ? 'ধাপে ধাপে সমাধান' : 'Step-by-step Solution'}</div>
+        ${steps}
+      </div>
+      ${sol.tip ? `<div style="margin:0 1.5rem 1.25rem;padding:0.85rem 1rem;background:rgba(212,168,56,0.07);border:1px solid rgba(212,168,56,0.22);border-radius:10px;font-size:0.83rem;color:var(--text-muted);">💡 <strong style="color:var(--text);">${isBn ? 'মনে রাখুন:' : 'Key tip:'}</strong> ${sol.tip}</div>` : ''}
+    </div>`;
+}
+
+async function solveProblem() {
+  const input = document.getElementById('solver-input').value.trim();
+  if (!input) { showToast(lang.current==='bn' ? 'প্রথমে একটি সমস্যা লিখুন!' : 'Please enter a problem first!'); return; }
+
+  const isBn = lang.current === 'bn';
+  const btn = document.getElementById('solve-btn');
+  const resultDiv = document.getElementById('solver-result');
+
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span> ${isBn ? 'সমাধান হচ্ছে…' : 'Solving…'}`;
+  resultDiv.innerHTML = `
+    <div style="background:white;border-radius:14px;border:1.5px solid var(--border);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:0.85rem;box-shadow:var(--shadow);">
+      <span class="spinner" style="border-color:rgba(26,140,140,0.2);border-top-color:var(--teal);width:18px;height:18px;flex-shrink:0;"></span>
+      <span style="color:var(--text-muted);font-size:0.9rem;">${isBn ? 'AI সমাধান তৈরি করছে…' : 'AI is solving your problem…'}</span>
+    </div>`;
+
+  const resetBtn = () => {
+    btn.disabled = false;
+    btn.innerHTML = `✨ <span id="solve-btn-text">${isBn ? 'সমাধান' : 'Solve'}</span>`;
+  };
+
+  const sysPrompt = isBn
+    ? `আপনি একজন বিশেষজ্ঞ গণিত অধ্যাপক। যেকোনো বৈধ গণিত সমস্যা বাংলায় ধাপে ধাপে সমাধান করুন। শুধুমাত্র raw JSON দিন, markdown বা অন্য কিছু নয়:\n{"valid":true,"topic":"বিষয়","answer":"উত্তর","steps":[{"title":"শিরোনাম","explanation":"ব্যাখ্যা","expression":"রাশি"}],"tip":"টিপস"}\nগণিত নয়: {"valid":false,"message":"কারণ"}`
+    : `You are an expert mathematics professor. Solve any valid math problem with complete step-by-step working. Respond with ONLY raw JSON, no markdown, no text outside JSON:\n{"valid":true,"topic":"topic","answer":"final answer","steps":[{"title":"step title","explanation":"explanation","expression":"math expression"}],"tip":"key concept"}\nIf not math: {"valid":false,"message":"reason"}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        system: sysPrompt,
+        messages: [{ role: 'user', content: input }]
+      })
+    });
+
+    if (!res.ok) {
+      const e = await res.json().catch(() => ({}));
+      resetBtn();
+      resultDiv.innerHTML = `<div style="background:#fff3f3;border:1.5px solid #ffcdd2;border-radius:14px;padding:1.25rem 1.5rem;color:#c62828;font-size:0.9rem;"><strong>API Error ${res.status}:</strong> ${e?.error?.message || res.statusText}</div>`;
+      return;
+    }
+
+    const data = await res.json();
+    const raw = (data.content?.[0]?.text || '').replace(/```json|```/g, '').trim();
+
+    let sol = null;
+    try { sol = JSON.parse(raw); }
+    catch { const m = raw.match(/\{[\s\S]*\}/); if (m) { try { sol = JSON.parse(m[0]); } catch {} } }
+
+    resetBtn();
+
+    if (!sol) {
+      resultDiv.innerHTML = `<div style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:1.25rem 1.5rem;color:#e65100;font-size:0.9rem;">⚠️ ${isBn ? 'উত্তর পার্স করা যায়নি। আবার চেষ্টা করুন।' : 'Could not parse response. Please try again.'}</div>`;
+      return;
+    }
+    if (!sol.valid) {
+      resultDiv.innerHTML = `<div style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:1.25rem 1.5rem;color:#f57f17;font-size:0.9rem;">⚠️ ${sol.message || (isBn ? 'এটি একটি গণিত সমস্যা নয়।' : 'This does not appear to be a valid math problem.')}</div>`;
+      return;
+    }
+
+    solverHistory.unshift({ q: input, sol });
+    if (solverHistory.length > 6) solverHistory.pop();
+
+    resultDiv.innerHTML = buildResultHTML(sol, input);
+    renderSolverHistory();
+
+  } catch (err) {
+    resetBtn();
+    resultDiv.innerHTML = `<div style="background:#fff3f3;border:1.5px solid #ffcdd2;border-radius:14px;padding:1.25rem 1.5rem;color:#c62828;font-size:0.9rem;">❌ ${err.message}</div>`;
+  }
+}
+
+function clearSolver() {
+  document.getElementById('solver-input').value = '';
+  document.getElementById('solver-result').innerHTML = '';
+}
+
+function renderSolverHistory() {
+  const el = document.getElementById('solver-history');
+  if (!el || !solverHistory.length) { if(el) el.innerHTML=''; return; }
+  const isBn = lang.current === 'bn';
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;">
+      <span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">${isBn ? 'সাম্প্রতিক সমাধান' : 'Recent'}</span>
+      <button onclick="clearSolverHistory()" style="font-size:0.75rem;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;">Clear</button>
+    </div>
+    ${solverHistory.map((h, i) => `
+      <div onclick="reloadSolverHistory(${i})" style="display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.85rem;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;margin-bottom:0.4rem;background:white;transition:background 0.12s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='white'">
+        <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;color:var(--text-muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${h.q}</span>
+        <span style="font-size:0.75rem;color:var(--text-muted);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${h.sol.answer}</span>
+        <span style="font-size:0.68rem;padding:0.15rem 0.55rem;background:rgba(26,140,140,0.1);color:var(--teal);border-radius:100px;flex-shrink:0;">${h.sol.topic}</span>
+      </div>`).join('')}`;
+}
+
+function reloadSolverHistory(i) {
+  const h = solverHistory[i];
+  document.getElementById('solver-input').value = h.q;
+  document.getElementById('solver-result').innerHTML = buildResultHTML(h.sol, h.q);
+}
+
+function clearSolverHistory() {
+  solverHistory.length = 0;
+  document.getElementById('solver-history').innerHTML = '';
+}
+
+function renderChapterGrid() {
+  const chapters = currentClass === 9 ? class9Chapters : class10Chapters;
+  const grid = document.getElementById('chapter-grid');
+  grid.innerHTML = chapters.map(ch => `
+    <div class="chapter-card">
+      <div class="ch-num">${lang.current==='bn' ? 'অধ্যায়' : 'Chapter'} ${ch.num}</div>
+      <div class="ch-title">${lang.current==='bn' ? ch.titleBn : ch.titleEn}</div>
+      <div class="ch-title-bn">${lang.current==='bn' ? ch.titleEn : ch.titleBn}</div>
+      <div class="ch-topics">
+        ${ch.topics.map(tp => `<span class="ch-topic">${lang.current==='bn' ? tp.bn : tp.en}</span>`).join('')}
+      </div>
+      <div class="ch-stats">
+        <span class="ch-stat">🎬 ${ch.videos} ${lang.current==='bn' ? 'ভিডিও' : 'videos'}</span>
+        <span class="ch-stat">✏️ ${ch.problems} ${lang.current==='bn' ? 'সমস্যা' : 'problems'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function switchClass(cls) {
+  currentClass = cls;
+  document.getElementById('tab-class9').classList.toggle('active', cls===9);
+  document.getElementById('tab-class10').classList.toggle('active', cls===10);
+  renderChapterGrid();
+}
+
+// ============================================================
+// LANGUAGE
+// ============================================================
+function toggleLanguage() {
+  lang.current = lang.current === 'en' ? 'bn' : 'en';
+  document.getElementById('lang-btn').textContent = lang.current === 'en' ? 'EN' : 'বাং';
+  updateAllText();
+  renderCategoryGrid();
+  renderFormulaTabs();
+  renderFormulaGrid(document.getElementById('formula-search').value);
+  renderExamples();
+  renderChapterGrid();
+}
+
+function updateAllText() {
+  const l = lang.current;
+  const isBn = l === 'bn';
+  document.getElementById('hero-badge-text').textContent = tr('heroBadge');
+  document.getElementById('hero-title').textContent = isBn ? 'ম্যাথইউনিভার্স' : 'MathUniverse';
+  document.getElementById('hero-subtitle').textContent = tr('heroSubtitle');
+  document.getElementById('hero-desc').textContent = tr('heroDesc');
+  document.getElementById('header-search-input').placeholder = tr('searchPlaceholder');
+  document.getElementById('hero-search').placeholder = tr('searchPlaceholder');
+  document.getElementById('sec-categories').textContent = tr('categories');
+  document.getElementById('sec-categories-desc').textContent = tr('catDesc');
+  document.getElementById('sec-tools').textContent = tr('tools');
+  document.getElementById('sec-tools-desc').textContent = tr('toolsDesc');
+  document.getElementById('feat-notes').textContent = tr('conceptNotes');
+  document.getElementById('feat-notes-desc').textContent = tr('conceptNotesDesc');
+  document.getElementById('feat-video').textContent = tr('videoLessons');
+  document.getElementById('feat-video-desc').textContent = tr('videoDesc');
+  document.getElementById('feat-practice').textContent = tr('practiceProblems');
+  document.getElementById('feat-practice-desc').textContent = tr('practiceDesc');
+  document.getElementById('feat-formulas').textContent = tr('formulaSheets');
+  document.getElementById('feat-formulas-desc').textContent = tr('formulaSheetsDesc');
+  document.getElementById('feat-solver').textContent = tr('mathSolver');
+  document.getElementById('feat-solver-desc').textContent = tr('mathSolverDesc');
+  document.getElementById('nav-formulas').textContent = tr('formulaSheets');
+  document.getElementById('nav-solver').textContent = tr('mathSolver');
+  ['back-home','back-home2'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = tr('backHome'); });
+  document.getElementById('formulas-title').textContent = tr('formulasPageTitle');
+  document.getElementById('formulas-desc').textContent = tr('formulasPageDesc');
+  document.getElementById('formula-search').placeholder = tr('searchFormulas');
+  document.getElementById('solver-title').textContent = tr('solverPageTitle');
+  document.getElementById('solver-desc').textContent = tr('solverPageDesc');
+  document.getElementById('solver-input-label').textContent = tr('solverLabel');
+  document.getElementById('solve-btn-text').textContent = tr('solve');
+  document.getElementById('clear-btn-text').textContent = tr('clear');
+  document.getElementById('examples-title').textContent = tr('examples');
+  document.getElementById('footer-text').textContent = tr('footer');
+}
+
+// ============================================================
+// PAGE NAVIGATION
+// ============================================================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  if(name === 'home') document.getElementById('page-home').classList.add('active');
+  else if(name === 'formulas') { document.getElementById('page-formulas').classList.add('active'); renderFormulaTabs(); renderFormulaGrid(); }
+  else if(name === 'solver') { document.getElementById('page-solver').classList.add('active'); renderExamples(); }
+  else if(name === 'secondary') { document.getElementById('page-secondary').classList.add('active'); renderChapterGrid(); }
+  window.scrollTo(0,0);
+}
+
+function showPageWithSearch(page, topic) {
+  showPage(page);
+  if(page==='formulas') {
+    if(formulaData[topic]) { currentFormulaTab = topic; renderFormulaTabs(); renderFormulaGrid(); }
+  }
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+function openSearch() {
+  document.getElementById('search-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('modal-search-input').focus(), 100);
+}
+function closeSearch() {
+  document.getElementById('search-overlay').classList.remove('open');
+}
+function handleSearchInput(val) {
+  document.getElementById('modal-search-input').value = val;
+  document.getElementById('header-search-input').value = val;
+  const results = searchTopics(val);
+  const container = document.getElementById('search-results');
+  if(!val.trim()) { container.innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--text-muted);font-size:0.9rem">Type to search formulas, chapters, topics...</div>'; return; }
+  if(!results.length) { container.innerHTML = '<div style="padding:1.5rem;text-align:center;color:var(--text-muted);font-size:0.9rem">No results found</div>'; return; }
+  container.innerHTML = results.slice(0,12).map(r => `
+    <div class="search-result-item" onclick="handleSearchClick('${r.type}','${(r.id||'').replace(/'/g,"\\'")}')">
+      <div class="search-result-type">${r.type}</div>
+      <div class="search-result-title">${r.title}</div>
+    </div>
+  `).join('');
+}
+
+function searchTopics(q) {
+  const r = [];
+  const lq = q.toLowerCase();
+  Object.entries(formulaData).forEach(([key,cat]) => {
+    if(cat.nameEn.toLowerCase().includes(lq) || cat.nameBn.includes(q)) {
+      r.push({ type:'Category', id:key, title:`${cat.nameEn} — ${cat.nameBn}` });
+    }
+    cat.formulas.forEach(f => {
+      if(f.nameEn.toLowerCase().includes(lq) || (f.nameBn && f.nameBn.includes(q)) || f.expr.toLowerCase().includes(lq)) {
+        r.push({ type:'Formula', id:key, title:`${f.nameEn}: ${f.expr}` });
+      }
+    });
+  });
+  [...class9Chapters,...class10Chapters].forEach(ch => {
+    if(ch.titleEn.toLowerCase().includes(lq) || ch.titleBn.includes(q)) {
+      r.push({ type:'Chapter', id:'secondary', title:`${ch.titleEn} — ${ch.titleBn}` });
+    }
+  });
+  return r;
+}
+
+function handleSearchClick(type, id) {
+  closeSearch();
+  if(type === 'Formula' || type === 'Category') {
+    currentFormulaTab = id;
+    showPage('formulas');
+  } else if(type === 'Chapter') {
+    showPage('secondary');
+  }
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSearch(); });
+renderCategoryGrid();
+</script>
+</body>
+</html>
