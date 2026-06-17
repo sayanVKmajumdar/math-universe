@@ -2,7 +2,7 @@
 
 > AI-powered Complete Mathematics Learning Platform
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-teal?style=for-the-badge)](https://YOUR_USERNAME.github.io/mathuniverse)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-teal?style=for-the-badge)](https://sayanvkmajumdar.github.io/math-universe)
 
 ## ✨ Features
 - 📋 Formula Sheets (Algebra, Calculus, Geometry...)
