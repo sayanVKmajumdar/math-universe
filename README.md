@@ -18,4 +18,4 @@
 - Claude AI API
 
 ## 🚀 Live Demo
-👉 https://YOUR_USERNAME.github.io/mathuniverse
+👉 https://sayanvkmajumdar.github.io/mathuniverse
