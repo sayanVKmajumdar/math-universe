@@ -202,12 +202,13 @@ export function answersMatch(expected: string, given: string): boolean {
     return Number.isFinite(parsed) ? parsed : null;
   };
 
+  // Tolerate rounded decimals (0.71 for √2/2, 153.9 for 49π) but not wrong answers.
+  const close = (expected: number, given: number) =>
+    Math.abs(expected - given) <= 0.005 + Math.abs(expected) * 5e-4;
+
   const expectedValue = numeric(a);
   const givenValue = numeric(b);
-  if (expectedValue !== null && givenValue !== null) {
-    // Tolerate rounded decimals (0.71 for √2/2, 153.9 for 49π) but not wrong answers.
-    return Math.abs(expectedValue - givenValue) <= 0.005 + Math.abs(expectedValue) * 1e-6;
-  }
+  if (expectedValue !== null && givenValue !== null) return close(expectedValue, givenValue);
 
   // Accept an exact fraction against its decimal form.
   const nodeGiven = tryParse(b);
@@ -215,9 +216,7 @@ export function answersMatch(expected: string, given: string): boolean {
   if (nodeGiven && nodeExpected) {
     const givenEval = evaluateNode(nodeGiven);
     const expectedEval = evaluateNode(nodeExpected);
-    if (givenEval !== null && expectedEval !== null) {
-      return Math.abs(givenEval - expectedEval) <= 0.005 + Math.abs(expectedEval) * 1e-6;
-    }
+    if (givenEval !== null && expectedEval !== null) return close(expectedEval, givenEval);
   }
 
   return false;
